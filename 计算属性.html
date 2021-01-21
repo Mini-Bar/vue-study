@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>计算属性</title>
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	</head>
+	<body>
+		<div id="mini">
+			<p>当前时间方法：{{getCountTime()}}</p>
+			<p>计算属性方法：{{getCount}}</p>
+		</div>
+	</body>
+	<script type="text/javascript">
+		const app=new Vue({
+			el:"#mini",
+			methods:{
+				getCountTime:function(){
+					return Date.now();
+				}
+			},
+			computed:{
+				getCount:function(){
+					return Date.now();
+				}
+			}
+		})
+	</script>
+</html>

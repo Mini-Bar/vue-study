@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>插槽</title>
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	</head>
+	<body>
+		<div id="mini">
+			<mini>
+				<mini-title slot="mini-title" v-bind:title="title"></mini-title>
+				<mini-context slot="mini-context" v-for="(item,index) in items" v-bind:item="item" v-bind:i="index" v-on:remove="removeitem"></mini-context>
+			</mini>
+		</div>
+	</body>
+	<script>
+		Vue.component("mini",{
+			template:"<div><div><slot name=\'mini-title\'></slot><ul><slot name=\'mini-context\'></slot></ul></div></div>"
+		});
+		Vue.component("mini-title",{
+			props:['title'],
+			template:"<div>{{title}}</div>"
+		});
+		Vue.component("mini-context",{
+			props:['item','i'],
+			template:"<li>{{item}}{{i}}<button @click='remove'>删除</button></li>",
+			methods:{
+				remove:function(){
+					this.$emit("remove")
+				}
+			}
+		})
+		const app=new Vue({
+			el:"#mini",
+			data:{
+				title:"标题",
+				items:["哈哈哈","啊啊啊","哦哦哦"]
+			},
+			methods:{
+				removeitem:function(index){
+					this.items.splice(index,1);
+				}
+			}
+		})
+		
+	</script>
+</html>
